@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgapps"
+    android:background="@drawable/bgapps2"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -14,21 +14,25 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfile"
-                android:layout_width="62dp"
-                android:layout_height="62dp"
-                android:layout_alignParentRight="true"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                app:civ_border_color="#fff"
+                app:civ_border_width="2dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/usernameId"
+                android:textColor="#FFFFFF"
                 android:textSize="22sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -39,6 +43,7 @@
             android:alignmentMode="alignMargins"
             android:columnCount="2"
             android:rowCount="3"
+            android:background="@android:color/transparent"
             android:columnOrderPreserved="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -48,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
@@ -57,17 +63,19 @@
                     android:orientation="vertical"
                     android:padding="16dp"
                     android:gravity="center"
+                    android:background="@android:color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/btnProfile"
                         android:src="@drawable/profile"
                         android:layout_width="80dp"
                         android:layout_height="80dp" />
 
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#6f6f6f"
+                        android:textColor="#ffffff"
+                        android:background="@android:color/transparent"
                         android:textSize="18sp"
                         android:text="Profile"
                         android:layout_width="wrap_content"
@@ -82,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
@@ -95,13 +104,13 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/btnSilabus"
                         android:src="@drawable/silabus"
                         android:layout_width="80dp"
                         android:layout_height="80dp" />
 
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#6f6f6f"
+                        android:textColor="#ffffff"
                         android:textSize="18sp"
                         android:text="Silabus"
                         android:layout_width="wrap_content"
@@ -126,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
@@ -139,13 +149,13 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/btnSchedule"
                         android:src="@drawable/schedule"
                         android:layout_width="80dp"
                         android:layout_height="80dp" />
 
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#6f6f6f"
+                        android:textColor="#ffffff"
                         android:textSize="18sp"
                         android:text="Schedule"
                         android:layout_width="wrap_content"
@@ -160,6 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
@@ -173,13 +184,13 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/btnAssignment"
                         android:src="@drawable/assignment"
                         android:layout_width="80dp"
                         android:layout_height="80dp" />
 
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#6f6f6f"
+                        android:textColor="#ffffff"
                         android:textSize="18sp"
                         android:text="Assignment"
                         android:layout_width="wrap_content"
@@ -193,7 +204,7 @@
 
         <GridLayout
             android:alignmentMode="alignMargins"
-            android:columnCount="1"
+            android:columnCount="2"
             android:rowCount="3"
             android:columnOrderPreserved="false"
             android:layout_width="match_parent"
@@ -204,6 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
                 android:layout_margin="12dp"
@@ -217,15 +229,50 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:id="@+id/btnScore"
                         android:src="@drawable/score"
                         android:layout_width="80dp"
                         android:layout_height="80dp" />
 
                     <TextView
-                        android:layout_marginTop="12dp"
-                        android:textColor="#6f6f6f"
+                        android:textColor="#ffffff"
                         android:textSize="18sp"
                         android:text="Transcript"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="12dp"
+                >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/btnLogout"
+                        android:src="@drawable/logout"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp" />
+
+                    <TextView
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:text="Logout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 

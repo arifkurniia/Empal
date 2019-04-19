@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 import com.example.empal.model.ResObj;
 import com.example.empal.remote.ApiUtils;
 import com.example.empal.remote.UserService;
+import com.example.empal.session.Save;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,9 +76,14 @@ public class LoginActivity extends AppCompatActivity {
                     ResObj resObj = response.body();
                     if(resObj.getMessage().equals("True")){
                         progressBar.setVisibility(View.GONE);
+                        Save.Save(getApplicationContext(),"session","true");
+                        Save.Save(getApplicationContext(),"username",username);
+                        Save.Save(getApplicationContext(),"name",resObj.getRealName());
+                        Save.Save(getApplicationContext(),"roles",resObj.getRole());
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("username", username);
                         startActivity(intent);
+                        finish();
+
                     }else{
                         Toast.makeText(LoginActivity.this, "Username or Password is incorrect", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
@@ -95,5 +100,11 @@ public class LoginActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
     }
 }

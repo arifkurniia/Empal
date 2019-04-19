@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/ic_launcher_foreground"
+    android:background="@drawable/bgapps2"
     android:fitsSystemWindows="true"
 
     tools:context=".LoginActivity">
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:text="EMPAL"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="?attr/actionMenuTextColor"
+                android:textColor="@android:color/background_light"
                 android:textSize="24sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -41,18 +41,20 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Employee Competency Record and Development"
-                android:textColor="?attr/actionMenuTextColor" />
+                android:textColor="@android:color/background_light" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
+            android:textCursorDrawable="@android:color/background_light"
             android:layout_marginBottom="8dp">
         <EditText android:id="@+id/txtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
+            android:textCursorDrawable="@drawable/cursor_color"
             android:hint="Username" />
         </android.support.design.widget.TextInputLayout>
 
@@ -64,6 +66,7 @@
         <EditText android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textCursorDrawable="@drawable/cursor_color"
             android:inputType="textPassword"
             android:hint="Password"/>
         </android.support.design.widget.TextInputLayout>
@@ -82,7 +85,7 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Inverse"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Large.Inverse"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center" />
