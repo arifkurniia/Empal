@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         username = String.valueOf(Save.Read(getApplicationContext(),"username",null));
         name = String.valueOf(Save.Read(getApplicationContext(),"name",null));
-        usernameId.setText("Hello, " +name);
+        usernameId.setText(name);
 
         Call<ResObj> call = userService.getImage(username);
         call.enqueue(new Callback<ResObj>() {
