@@ -1,8 +1,11 @@
 package com.example.empal;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.empal.model.ResObj;
-import com.example.empal.remote.ApiUtils;
-import com.example.empal.remote.UserService;
+import com.example.empal.remote.ServiceGenerator;
 import com.example.empal.session.Save;
 
 import java.io.InputStream;
@@ -26,8 +28,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     TextView usernameId;
-    UserService userService;
     Boolean session;
     ImageView btnProfile;
     ImageView btnSilabus;
@@ -37,18 +39,20 @@ public class MainActivity extends AppCompatActivity {
     ImageView btnLogout;
     String username;
     String name;
+    private ServiceGenerator serviceGenerator = ServiceGenerator.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(instance == null){
+            instance = this;
+        }
+
         usernameId = (TextView) findViewById(R.id.usernameId);
         btnLogout = findViewById(R.id.btnLogout);
         btnProfile = findViewById(R.id.btnProfile);
-
-        userService = ApiUtils.getUserService();
-
 
         SESSION();
 
@@ -56,10 +60,21 @@ public class MainActivity extends AppCompatActivity {
         name = String.valueOf(Save.Read(getApplicationContext(),"name",null));
         usernameId.setText(name);
 
-        Call<ResObj> call = userService.getImage(username);
+        Call<ResObj> call = serviceGenerator.getApi().getImage(username);
         call.enqueue(new Callback<ResObj>() {
             @Override
             public void onResponse(Call<ResObj> call, Response<ResObj> response) {
+                Log.e(TAG, "log: -----------------------------");
+                Log.d(TAG, "onResponse: " + response.body());
+
+                if(response.raw().networkResponse() != null){
+                    Log.d(TAG, "onResponse: response is from NETWORK...");
+                }
+                else if(response.raw().cacheResponse() != null
+                        && response.raw().networkResponse() == null){
+                    Log.d(TAG, "onResponse: response is from CACHE...");
+                }
+
                 if(response.isSuccessful()){
                     ResObj resObj = response.body();
                     new DownloadImageTask((ImageView) findViewById(R.id.imgProfile))
@@ -130,7 +145,25 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         else {
-            Toast.makeText(this , "You are logged in", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private static MainActivity instance;
+
+    public static MainActivity getInstance(){
+        return instance;
+    }
+
+    public static boolean hasNetwork(){
+        return instance.isNetworkConnected();
+    }
+
+    private boolean isNetworkConnected(){
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 }

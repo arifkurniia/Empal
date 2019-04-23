@@ -3,6 +3,7 @@ package com.example.empal;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,8 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.empal.model.ResObj;
-import com.example.empal.remote.ApiUtils;
-import com.example.empal.remote.UserService;
+import com.example.empal.remote.ServiceGenerator;
 import com.example.empal.session.Save;
 
 import retrofit2.Call;
@@ -20,11 +20,12 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "LoginActivity";
     EditText edtUsername;
     EditText edtPassword;
     Button btnLogin;
     ProgressBar progressBar;
-    UserService userService;
+    private ServiceGenerator serviceGenerator = ServiceGenerator.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
-        userService = ApiUtils.getUserService();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,10 +68,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void doLogin(final String username, final String password){
-        Call<ResObj> call = userService.login(username, password);
+        Call<ResObj> call = serviceGenerator.getApi().login(username, password);
         call.enqueue(new Callback<ResObj>() {
             @Override
-            public void onResponse(Call<ResObj> call, Response<ResObj> response) {
+            public void onResponse(Call<ResObj> call, Response<ResObj> response)
+            {
+                Log.e(TAG, "log: -----------------------------");
+                Log.d(TAG, "onResponse: " + response.body());
+
+                if(response.raw().networkResponse() != null){
+                    Log.d(TAG, "onResponse: response is from NETWORK...");
+                }
+                else if(response.raw().cacheResponse() != null
+                        && response.raw().networkResponse() == null){
+                    Log.d(TAG, "onResponse: response is from CACHE...");
+                }
+
                 if(response.isSuccessful()){
                     ResObj resObj = response.body();
                     if(resObj.getMessage().equals("True")){

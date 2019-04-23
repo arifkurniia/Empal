@@ -12,8 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.empal.model.Student;
-import com.example.empal.remote.ApiUtils;
-import com.example.empal.remote.UserService;
+import com.example.empal.remote.ServiceGenerator;
 import com.example.empal.session.Save;
 
 import java.io.InputStream;
@@ -24,6 +23,7 @@ import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private static final String TAG = "ProfileActivity";
     TextView txtName;
     TextView txtCompany;
     TextView txtGender;
@@ -34,8 +34,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextView txtFunctionProfile;
     String username;
     String imgProfileUrl;
-    UserService userService;
     ImageView imgProfile;
+    private ServiceGenerator serviceGenerator = ServiceGenerator.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +52,25 @@ public class ProfileActivity extends AppCompatActivity {
         txtNIP = (TextView) findViewById(R.id.txtNIP);
         txtFunctionProfile = (TextView) findViewById(R.id.txtFunctionProfile);
         final android.text.format.DateFormat df = new android.text.format.DateFormat();
-        userService = ApiUtils.getUserService();
 
         username = String.valueOf(Save.Read(getApplicationContext(),"username",null));
         imgProfileUrl = String.valueOf(Save.Read(getApplicationContext(),"imgProfileUrl",null));
 
-        Call<Student> call = userService.getUserProfile(username);
+        Call<Student> call = serviceGenerator.getApi().getUserProfile(username);
         call.enqueue(new Callback<Student>() {
             @Override
             public void onResponse(Call<Student> call, Response<Student> response) {
+                Log.e(TAG, "log: -----------------------------");
+                Log.d(TAG, "onResponse: " + response.body());
+
+                if(response.raw().networkResponse() != null){
+                    Log.d(TAG, "onResponse: response is from NETWORK...");
+                }
+                else if(response.raw().cacheResponse() != null
+                        && response.raw().networkResponse() == null){
+                    Log.d(TAG, "onResponse: response is from CACHE...");
+                }
+
                 if(response.isSuccessful()){
                     Student students = response.body();
                     new ProfileActivity.DownloadImageTask((ImageView) findViewById(R.id.imgProfile))

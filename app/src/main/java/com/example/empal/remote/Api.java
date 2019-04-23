@@ -7,7 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface UserService {
+public interface Api {
 
     @GET("WebService/LoginAndroid")
     Call<ResObj> login(@Query("username") String username, @Query("password") String password);
@@ -17,8 +17,4 @@ public interface UserService {
 
     @GET("WebService/GetStudentProfile")
     Call<Student> getUserProfile(@Query("username") String username);
-
-//    @GET("WebService/GetStudentProfile")
-//    Call<List<Student>> getUserProfile(@Query("username") String username);
-
 }
