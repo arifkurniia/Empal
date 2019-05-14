@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(instance == null){
-            instance = this;
-        }
-
         usernameId = (TextView) findViewById(R.id.usernameId);
         btnLogout = findViewById(R.id.btnLogout);
         btnProfile = findViewById(R.id.btnProfile);
+        btnSilabus = findViewById(R.id.btnSilabus);
+        btnSchedule = findViewById(R.id.btnSchedule);
+        btnAssignment = findViewById(R.id.btnAssignment);
+        btnTranscript = findViewById(R.id.btnScore);
 
         SESSION();
 
@@ -110,6 +110,15 @@ public class MainActivity extends AppCompatActivity {
                 Save.Save(getApplicationContext(),"username", username);
             }
         });
+
+        btnSilabus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SilabusActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -146,24 +155,5 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
         }
-    }
-
-    private static MainActivity instance;
-
-    public static MainActivity getInstance(){
-        return instance;
-    }
-
-    public static boolean hasNetwork(){
-        return instance.isNetworkConnected();
-    }
-
-    private boolean isNetworkConnected(){
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
     }
 }

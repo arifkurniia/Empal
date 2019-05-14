@@ -1,9 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bgapps2"
     tools:context=".SilabusActivity">
 
-</android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="20dp"
+            app:elevation="0dp"
+            android:id="@+id/appBarLayout"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/spinner_border"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerCompetencyBook"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:popupBackground="@android:color/black"
+                    >
+
+                </Spinner>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/spinner_border"
+                android:layout_marginBottom="6dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerCompetencyGroup"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:popupBackground="@android:color/black"
+                    >
+
+                </Spinner>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/spinner_border"
+                android:layout_marginBottom="6dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerCompetencyRegister"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:popupBackground="@android:color/black"
+                    >
+
+                </Spinner>
+
+            </RelativeLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabSilabus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal"
+            android:background="@android:color/transparent"
+            app:tabTextColor="#FFFFFF"
+            app:tabIndicatorColor="#F0F0F0"
+            app:tabGravity="center"
+            app:tabMode="scrollable">
+
+        </android.support.design.widget.TabLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                >
+
+            </android.support.v4.view.ViewPager>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@android:style/Widget.Holo.Light.ProgressBar.Large.Inverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+        </RelativeLayout>
+
+</LinearLayout>

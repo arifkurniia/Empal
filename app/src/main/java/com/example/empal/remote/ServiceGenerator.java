@@ -20,8 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
     private static final String TAG = "ServiceGenerator";
-//    private static final String BASE_URL = "http://192.168.1.55/Empal/";
-    private static final String BASE_URL = "https://bolen.tiaravib.com/empal/";
+    private static final String BASE_URL = "http://192.168.1.66/Empal/";
+//    private static final String BASE_URL = "https://bolen.tiaravib.com/empal/";
     public static final String HEADER_CACHE_CONTROL = "Cache-Control";
     public static final String HEADER_PRAGMA = "Pragma";
 
@@ -47,6 +47,9 @@ public class ServiceGenerator {
 
     private static OkHttpClient okHttpClient(){
         return new OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
                 .cache(cache())
                 .addInterceptor(httpLoggingInterceptor()) // used if network off OR on
                 .addNetworkInterceptor(networkInterceptor()) // only used when network is on
